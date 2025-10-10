@@ -15,5 +15,8 @@ namespace PawsForApplause.Data
         }
 
         public DbSet<PawsForApplause.Models.Show> Show { get; set; } = default!;
+        public DbSet<PawsForApplause.Models.Venue> Venue { get; set; } = default!;
+        public DbSet<PawsForApplause.Models.Ticket> Ticket { get; set; } = default!;
+        public DbSet<PawsForApplause.Models.User> User { get; set; } = default!;
     }
 }

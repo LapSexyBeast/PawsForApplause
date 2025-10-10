@@ -1,4 +1,9 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using PawsForApplause.Data;
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContext<PawsForApplauseContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("PawsForApplauseContext") ?? throw new InvalidOperationException("Connection string 'PawsForApplauseContext' not found.")));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

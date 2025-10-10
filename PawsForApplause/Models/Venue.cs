@@ -2,7 +2,7 @@
 {
     public class Venue
     {
-        public int Id { get; set; }
+        public int VenueId { get; set; }
         public string Name { get; set; } = string.Empty; // venue name
         public string Address { get; set; } = string.Empty; // venue address
         public string City { get; set; } = string.Empty; // venue city

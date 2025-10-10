@@ -27,7 +27,7 @@ namespace PawsForApplause.Models
         
 
         [NotMapped]
-        [Display(Name = "Photograph")]
+        [Display(Name = "Event Image")]
         public IFormFile? FormFile { get; set; } //nullable
 
     }

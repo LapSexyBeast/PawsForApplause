@@ -41,5 +41,15 @@ namespace PawsForApplause.Models
         [Display(Name = "Event Image")]
         public IFormFile? FormFile { get; set; } //nullable
 
+        [NotMapped]
+        public string Synopsis
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(Description)) return string.Empty;
+                return Description.Length > 100 ? Description.Substring(0, 100) + "..." : Description;
+            }
+        }
+
     }
 }

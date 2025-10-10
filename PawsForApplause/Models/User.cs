@@ -1,4 +1,6 @@
-﻿namespace PawsForApplause.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace PawsForApplause.Models
 {
     public class User
     {
@@ -14,6 +16,10 @@
 
         public List<Show> Shows { get; set; } = new(); // Navigation property to Shows created by the user
         public List<Ticket> Tickets { get; set; } = new(); // Navigation property to Tickets purchased by the user
+
+        [NotMapped]
+        public string FullName => $"{FirstName} {LastName}";
+
 
 
     }

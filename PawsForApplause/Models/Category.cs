@@ -7,5 +7,6 @@
 
         //Navigation
         public ICollection<Show> Shows { get; set; } = new List<Show>();
+
     }
 }

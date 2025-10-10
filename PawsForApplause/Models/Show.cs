@@ -13,6 +13,7 @@ namespace PawsForApplause.Models
         public DateTime Date { get; set; } //date and time
         public string Location { get; set; } = string.Empty; //location //unsure if want to connect this as a FK vs it being a google link
         public DateTime Created { get; set; } //date and time record created
+        public string Filename { get; set; } = string.Empty;
 
         // Foreign Keys
         public int UserId { get; set; } // FK to User (who created the event)
@@ -21,10 +22,10 @@ namespace PawsForApplause.Models
         public int CategoryId { get; set; } //FK to Category
 
         //Navigation Properties
-
+        public Category? Category { get; set; }
         public User? User { get; set; } // Navigation property to User
         public Venue? Venue { get; set; } // Navigation property to Venue
-        public Category? Category { get; set; }
+        
 
         [NotMapped]
         [Display(Name = "Photograph")]

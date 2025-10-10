@@ -10,5 +10,9 @@
         public string PostalCode { get; set; } = string.Empty; // venue postal code
         public int Capacity { get; set; } // venue capacity
         public DateTime Created { get; set; } // date and time record created
+
+        //Navigation property to Shows held at the venue
+        public ICollection<Show> Shows { get; set; } = new List<Show>();
+
     }
 }

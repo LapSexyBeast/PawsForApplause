@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PawsForApplause.Data;
 
@@ -11,9 +12,11 @@ using PawsForApplause.Data;
 namespace PawsForApplause.Migrations
 {
     [DbContext(typeof(PawsForApplauseContext))]
-    partial class PawsForApplauseContextModelSnapshot : ModelSnapshot
+    [Migration("20251010161527_CategoryControllerMigration")]
+    partial class CategoryControllerMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -57,10 +60,6 @@ namespace PawsForApplause.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Filename")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

@@ -10,7 +10,6 @@ namespace PawsForApplause.Models
         public string City { get; set; } = string.Empty; // venue city
         public string Province { get; set; } = string.Empty; // venue Province
         public string PostalCode { get; set; } = string.Empty; // venue postal code
-        public int Capacity { get; set; } // venue capacity
         public DateTime Created { get; set; } // date and time record created
         public DateTime LastModified { get; set; } //date and time record last modified
 

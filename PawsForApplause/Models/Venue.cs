@@ -1,4 +1,6 @@
-﻿namespace PawsForApplause.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace PawsForApplause.Models
 {
     public class Venue
     {
@@ -14,6 +16,9 @@
 
         //Navigation property to Shows held at the venue
         public ICollection<Show> Shows { get; set; } = new List<Show>();
+
+        [NotMapped]
+        public string FullAddress => $"{Name} - {Address}, {City}, {Province} {PostalCode}";
 
     }
 }

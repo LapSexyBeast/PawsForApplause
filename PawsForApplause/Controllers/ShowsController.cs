@@ -52,7 +52,7 @@ namespace PawsForApplause.Controllers
         {
             ViewData["CategoryId"] = new SelectList(_context.Category, "CategoryId", "CategoryName");
             ViewData["UserId"] = new SelectList(_context.Set<User>(), "Id", "FullName");
-            ViewData["VenueId"] = new SelectList(_context.Set<Venue>(), "VenueId", "Name");
+            ViewData["VenueId"] = new SelectList(_context.Set<Venue>(), "VenueId", "FullAddress");
             
 
             return View();
@@ -98,7 +98,7 @@ namespace PawsForApplause.Controllers
             }
             ViewData["CategoryId"] = new SelectList(_context.Category, "CategoryId", "CategoryName");
             ViewData["UserId"] = new SelectList(_context.Set<User>(), "Id", "FullName", show.UserId);
-            ViewData["VenueId"] = new SelectList(_context.Set<Venue>(), "VenueId", "Name", show.VenueId);
+            ViewData["VenueId"] = new SelectList(_context.Set<Venue>(), "VenueId", "FullAddress", show.VenueId);
             return View(show);
         }
 
@@ -117,7 +117,7 @@ namespace PawsForApplause.Controllers
             }
             ViewData["CategoryId"] = new SelectList(_context.Category, "CategoryId", "CategoryName");
             ViewData["UserId"] = new SelectList(_context.Set<User>(), "Id", "FullName", show.UserId);
-            ViewData["VenueId"] = new SelectList(_context.Set<Venue>(), "VenueId", "Name", show.VenueId);
+            ViewData["VenueId"] = new SelectList(_context.Set<Venue>(), "VenueId", "FullAddress", show.VenueId);
             
 
             return View(show);
@@ -195,7 +195,7 @@ namespace PawsForApplause.Controllers
             }
             ViewData["CategoryId"] = new SelectList(_context.Category, "CategoryId", "CategoryName");
             ViewData["UserId"] = new SelectList(_context.Set<User>(), "Id", "FullName", show.UserId);
-            ViewData["VenueId"] = new SelectList(_context.Set<Venue>(), "VenueId", "Name", show.VenueId);
+            ViewData["VenueId"] = new SelectList(_context.Set<Venue>(), "VenueId", "FullAddress", show.VenueId);
             return View(show);
         }
 

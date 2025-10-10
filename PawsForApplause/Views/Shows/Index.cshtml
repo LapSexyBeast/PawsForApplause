@@ -13,6 +13,9 @@
     <thead>
         <tr>
             <th>
+                Event Image
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Name)
             </th>
             <th>
@@ -43,6 +46,16 @@
 @foreach (var item in Model) {
         <tr>
             <td>
+                @if (!string.IsNullOrEmpty(item.Filename))
+                {
+                    <img src="~/photos/@item.Filename" alt="Filename" style="width: 100px; height: auto;" />
+                }
+                else {
+                    <img src="~/images/partyCat.jpg" alt="Placeholder Image" style="width: 100px; height: auto;" />
+                }
+            </td>
+
+            <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
@@ -64,7 +77,7 @@
                 @Html.DisplayFor(modelItem => item.Created)
             </td>
             <td>
-                @Html.DisplayNameFor(model => model.LastModified)
+                @Html.DisplayFor(modelItem => item.LastModified)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.ShowId">Edit</a> |

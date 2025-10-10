@@ -71,7 +71,7 @@ namespace PawsForApplause.Controllers
                 if (show.FormFile != null)
                 {
                     //Create a unique filename using GUID
-                    string fileName = Guid.NewGuid().ToString()+Path.GetExtension(show.FormFile.FileName);
+                    string fileName = Path.GetFileNameWithoutExtension(show.FormFile.FileName)+"_"+Guid.NewGuid().ToString()+Path.GetExtension(show.FormFile.FileName);
 
                     //Initialize the filename in photo record
                     show.Filename = fileName;
@@ -142,7 +142,7 @@ namespace PawsForApplause.Controllers
                 if (show.FormFile != null)
                 {
                     //Create a unique filename using GUID
-                    string fileName = Guid.NewGuid().ToString() + Path.GetExtension(show.FormFile.FileName);
+                    string fileName = Path.GetFileNameWithoutExtension(show.FormFile.FileName) + "_" + Guid.NewGuid().ToString() + Path.GetExtension(show.FormFile.FileName);
 
                     //Initialize the filename in photo record
                     show.Filename = fileName;

@@ -10,6 +10,20 @@
     <h4>Show</h4>
     <hr />
     <dl class="row">
+        <dt class="col-sm-2">
+            Image
+        </dt>
+        <dd class="col-sm-10">
+            @if (!string.IsNullOrEmpty(Model.Filename))
+            {
+                <img src="~/photos/@Model.Filename" alt="Event Image" class="img-thumbnail" style="max-width:300px;" />
+            }
+            else
+            {
+                <img src="~/images/partyCat.jpg" alt="Placeholder Image" class="img-thumbnail" style="max-width:300px;" />
+            }
+        </dd>
+
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Name)
         </dt>
@@ -30,19 +44,8 @@
             @Html.DisplayFor(model => model.Date)
         </dd>
         
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Created)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Created)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.LastModified)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.LastModified)
-        </dd>
-        s
+        
+        
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.User)
         </dt>
@@ -53,7 +56,19 @@
             @Html.DisplayNameFor(model => model.Venue)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Venue.VenueId)
+            @Html.DisplayFor(model => model.Venue.FullAddress)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Created)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Created)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.LastModified)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.LastModified)
         </dd>
     </dl>
 </div>

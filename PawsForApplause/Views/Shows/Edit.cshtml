@@ -4,7 +4,7 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit Shows</h1>
+<h1>Edit Show</h1>
 
 <div class="row">
     <div class="col-md-4">
@@ -31,22 +31,26 @@
                 <input asp-for="Date" class="form-control" />
                 <span asp-validation-for="Date" class="text-danger"></span>
             </div>
+            @if (!string.IsNullOrEmpty(Model.Filename))
+            {
+                <div class="form-group">
+                    <label>Current Event Image</label><br />
+                    <img src="~/photos/@Model.Filename" alt="Event Image" class="img-thumbnail" style="max-width: 300px;" />
+                </div>
+            } else
+            {
+                <div class="form-group">
+                <label>Add an Event Image?</label><br />
+                </div>
+            }
+
             
             <div class="form-group">
-                <label asp-for="Created" class="control-label"></label>
-                <input asp-for="Created" class="form-control" readonly/>
-                <span asp-validation-for="Created" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="LastModified" class="control-label"></label>
-                <input asp-for="LastModified" class="form-control" readonly />
-                <span asp-validation-for="Created" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="FormFile" class="control-label"></label>
+                <label>Change Event Image</label>
                 <input asp-for="FormFile" type="file" class="form-control" />
                 <span asp-validation-for="FormFile" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <label asp-for="CategoryId" class="control-label"></label>
                 <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>

@@ -68,7 +68,7 @@ namespace PawsForApplause.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["UserId"] = new SelectList(_context.Set<User>(), "Id", "Id", show.UserId);
-            ViewData["VenueId"] = new SelectList(_context.Set<Venue>(), "VenueId", "VenueId", show.VenueId);
+            ViewData["VenueId"] = new SelectList(_context.Set<Venue>(), "VenueId", "Name", show.VenueId);
             return View(show);
         }
 
@@ -85,8 +85,8 @@ namespace PawsForApplause.Controllers
             {
                 return NotFound();
             }
-            ViewData["UserId"] = new SelectList(_context.Set<User>(), "Id", "Id", show.UserId);
-            ViewData["VenueId"] = new SelectList(_context.Set<Venue>(), "VenueId", "VenueId", show.VenueId);
+            ViewData["UserId"] = new SelectList(_context.Set<User>(), "Id", "FirstName"+" "+"LastName", show.UserId);
+            ViewData["VenueId"] = new SelectList(_context.Set<Venue>(), "VenueId", "Name", show.VenueId);
             return View(show);
         }
 

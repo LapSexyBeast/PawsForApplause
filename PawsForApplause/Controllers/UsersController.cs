@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Humanizer.Localisation;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PawsForApplause.Data;
 using PawsForApplause.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace PawsForApplause.Controllers
 {
@@ -58,6 +59,10 @@ namespace PawsForApplause.Controllers
         {
             if (ModelState.IsValid)
             {
+                user.Created = DateTime.Now;
+                user.LastModified = user.Created;
+
+
                 _context.Add(user);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -95,6 +100,10 @@ namespace PawsForApplause.Controllers
 
             if (ModelState.IsValid)
             {
+                var existingUser = await _context.Show.AsNoTracking().FirstOrDefaultAsync(s => s.UserId == id);
+                user.Created = existingUser.Created;
+                user.LastModified = DateTime.Now;
+
                 try
                 {
                     _context.Update(user);

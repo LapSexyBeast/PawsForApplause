@@ -22,7 +22,7 @@ namespace PawsForApplause.Controllers
         // GET: Shows
         public async Task<IActionResult> Index()
         {
-            var pawsForApplauseContext = _context.Show.Include(s => s.User).Include(s => s.Venue);
+            var pawsForApplauseContext = _context.Show.Include(s => s.Category).Include(s => s.User).Include(s => s.Venue);
             return View(await pawsForApplauseContext.ToListAsync());
         }
 
@@ -89,6 +89,7 @@ namespace PawsForApplause.Controllers
 
                 //set the Created date to the current date/time
                 show.Created = DateTime.Now;
+                show.LastModified = show.Created;
 
 
                 _context.Add(show);
@@ -168,6 +169,11 @@ namespace PawsForApplause.Controllers
 
                 }
 
+                //Keep the original Created date
+                var existingShow = await _context.Show.AsNoTracking().FirstOrDefaultAsync(s => s.ShowId == id);
+                show.Created = existingShow.Created;
+
+                show.LastModified = DateTime.Now;
 
                 try
                 {

@@ -11,6 +11,8 @@ namespace PawsForApplause.Models
         public string FirstName { get; set; } = string.Empty; // first name
         public string LastName { get; set; } = string.Empty; // last name
         public DateTime Created { get; set; } // date and time record created
+        public DateTime LastModified { get; set; } //date and time record last modified
+
 
         //Navigation
 

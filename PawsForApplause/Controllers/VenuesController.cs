@@ -58,6 +58,9 @@ namespace PawsForApplause.Controllers
         {
             if (ModelState.IsValid)
             {
+                venue.Created = DateTime.Now;
+                venue.LastModified = venue.Created;
+
                 _context.Add(venue);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -95,6 +98,11 @@ namespace PawsForApplause.Controllers
 
             if (ModelState.IsValid)
             {
+
+                var existingVenue = await _context.Show.AsNoTracking().FirstOrDefaultAsync(s => s.VenueId == id);
+                venue.Created = existingVenue.Created;
+                venue.LastModified = DateTime.Now;
+
                 try
                 {
                     _context.Update(venue);

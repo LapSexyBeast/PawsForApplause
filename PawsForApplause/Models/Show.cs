@@ -11,14 +11,13 @@ namespace PawsForApplause.Models
         public string Name { get; set; } = string.Empty; // event's title
         public string Description { get; set; } = string.Empty; //description
         public DateTime Date { get; set; } //date and time
-        public string Location { get; set; } = string.Empty; //location //unsure if want to connect this as a FK vs it being a google link
         public DateTime Created { get; set; } //date and time record created
+        public DateTime LastModified { get; set; } //date and time record last modified
         public string Filename { get; set; } = string.Empty;
 
         // Foreign Keys
         public int UserId { get; set; } // FK to User (who created the event)
         public int VenueId { get; set; } // FK to Venue
-
         public int CategoryId { get; set; } //FK to Category
 
         //Navigation Properties

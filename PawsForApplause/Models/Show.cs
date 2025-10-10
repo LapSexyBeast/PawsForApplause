@@ -13,9 +13,11 @@ namespace PawsForApplause.Models
         [Display(Name = "Event Description")]
         public string Description { get; set; } = string.Empty; //description
         [Display(Name = "Event Date")]
-        [DisplayFormat(DataFormatString = "{0:MMM dd, yyyy}", ApplyFormatInEditMode = false)]
+        [DisplayFormat(DataFormatString = "{0:dddd, MMM dd, yyyy 'at' hh:mm tt}", ApplyFormatInEditMode = false)]
         public DateTime Date { get; set; } //date and time
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = false)]
         public DateTime Created { get; set; } //date and time record created
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = false)]
         public DateTime LastModified { get; set; } //date and time record last modified
         public string Filename { get; set; } = string.Empty;
 

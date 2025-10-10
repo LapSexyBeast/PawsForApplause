@@ -8,7 +8,9 @@ namespace PawsForApplause.Models
         public int Id { get; set; }
         public string FirstName { get; set; } = string.Empty; // first name
         public string LastName { get; set; } = string.Empty; // last name
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = false)]
         public DateTime Created { get; set; } // date and time record created
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = false)]
         public DateTime LastModified { get; set; } //date and time record last modified
 
 

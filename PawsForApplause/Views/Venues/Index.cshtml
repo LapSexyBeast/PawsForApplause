@@ -29,10 +29,7 @@
             </th>
             
             <th>
-                @Html.DisplayNameFor(model => model.Created)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LastModified)
+               Venue Record
             </th>
             <th></th>
         </tr>
@@ -57,10 +54,15 @@
             </td>
             
             <td>
-                @Html.DisplayFor(modelItem => item.Created)
-            </td>
-            <td>
+                @if (item.Created == item.LastModified)
+                {
+                    @Html.DisplayFor(modelItem => item.Created)
+                }
+                else
+                {
                     @Html.DisplayFor(modelItem => item.LastModified)
+
+                }
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.VenueId">Edit</a> |

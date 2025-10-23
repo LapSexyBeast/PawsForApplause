@@ -1,4 +1,5 @@
 ﻿using Humanizer.Localisation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -11,6 +12,8 @@ using System.Threading.Tasks;
 
 namespace PawsForApplause.Controllers
 {
+    [Authorize]
+
     public class UsersController : Controller
     {
         private readonly PawsForApplauseContext _context;

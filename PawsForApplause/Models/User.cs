@@ -20,6 +20,7 @@ namespace PawsForApplause.Models
         public List<Ticket> Tickets { get; set; } = new(); // Navigation property to Tickets purchased by the user
 
         [NotMapped]
+        [Display(Name = "Full Name")]
         public string FullName => $"{FirstName} {LastName}";
 
 

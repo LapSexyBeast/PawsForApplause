@@ -4,20 +4,17 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>List of Users</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Add New User</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             
             <th>
-                @Html.DisplayNameFor(model => model.FirstName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LastName)
+                @Html.DisplayNameFor(model => model.First().FullName)
             </th>
             <th>
                 Profile Record
@@ -30,11 +27,9 @@
         <tr>
             
             <td>
-                @Html.DisplayFor(modelItem => item.FirstName)
+                @Html.DisplayFor(modelItem => item.FullName)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LastName)
-            </td>
+            
             <td>
                 @if (item.Created == item.LastModified)
                 {

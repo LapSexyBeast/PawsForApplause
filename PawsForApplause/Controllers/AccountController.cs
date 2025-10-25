@@ -14,14 +14,22 @@ namespace PawsForApplause.Controllers
             return View();
         }
 
+        private readonly IConfiguration _configuration;
+
+        public AccountController(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
         //Post : /Account/Login
         [HttpPost]
         [ValidateAntiForgeryToken]
 
         public async Task<IActionResult> Login(string username, string password)
         {
+            var appUsername = _configuration["AppUsername"];
+            var appPassword = _configuration["AppPassword"];
             //Validate username and password
-            if(username == "admin" && password == "admin123")
+            if (username == appUsername && password == appPassword)
             {
                 var claims = new List<Claim>
                 {

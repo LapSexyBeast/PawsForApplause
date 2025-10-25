@@ -32,6 +32,11 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+if (builder.Environment.IsDevelopment())
+{
+    builder.Configuration.AddUserSecrets<Program>();
+}
+
 app.UseHttpsRedirection();
 app.UseRouting();
 

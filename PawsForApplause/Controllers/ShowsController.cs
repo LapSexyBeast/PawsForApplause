@@ -28,7 +28,9 @@ namespace PawsForApplause.Controllers
 
             //Setup _containerClient in class constructor :
 
-            var connectionString = _config.GetConnectionString("AzureStorage");
+            //var connectionString = _config.GetConnectionString("AzureStorage");
+            var connectionString = _config["AzureStorage"];
+
             var containerName = "uploads";
             _containerClient = new BlobContainerClient(connectionString, containerName);
 

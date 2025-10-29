@@ -192,6 +192,11 @@ namespace PawsForApplause.Controllers
                 var existingShow = await _context.Show.AsNoTracking().FirstOrDefaultAsync(s => s.ShowId == id);
                 show.Created = existingShow.Created;
 
+                if (show.FormFile == null)
+                {
+                    show.Filename = existingShow.Filename;
+                }
+
                 show.LastModified = DateTime.Now;
 
                 try

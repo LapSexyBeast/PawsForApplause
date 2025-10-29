@@ -45,7 +45,7 @@
             <td>
                 @if (!string.IsNullOrEmpty(item.Filename))
                 {
-                    <img src="~/photos/@item.Filename" alt="Filename" style="width: 100px; height: auto;" />
+                    <img src="@item.Filename" alt="Filename" style="width: 100px; height: auto;" />
                 }
                 else {
                     <img src="~/images/partyCat.jpg" alt="Placeholder Image" style="width: 100px; height: auto;" />

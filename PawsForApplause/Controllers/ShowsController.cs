@@ -1,13 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Azure;
+using Azure.Storage.Blobs;
+using Azure.Storage.Blobs.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PawsForApplause.Data;
 using PawsForApplause.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace PawsForApplause.Controllers
 {
@@ -15,10 +18,20 @@ namespace PawsForApplause.Controllers
     public class ShowsController : Controller
     {
         private readonly PawsForApplauseContext _context;
+        private readonly BlobContainerClient _containerClient;
+        private readonly IConfiguration _config;
 
-        public ShowsController(PawsForApplauseContext context)
+        public ShowsController(PawsForApplauseContext context, IConfiguration config)
         {
             _context = context;
+            _config = config;
+
+            //Setup _containerClient in class constructor :
+
+            var connectionString = _config.GetConnectionString("AzureStorage");
+            var containerName = "uploads";
+            _containerClient = new BlobContainerClient(connectionString, containerName);
+
         }
 
         // GET: Shows
@@ -72,21 +85,22 @@ namespace PawsForApplause.Controllers
                 //1) Save the file (optional)
                 if (show.FormFile != null)
                 {
-                    //Create a unique filename using GUID
-                    string fileName = Path.GetFileNameWithoutExtension(show.FormFile.FileName)+"_"+Guid.NewGuid().ToString()+Path.GetExtension(show.FormFile.FileName);
+                    // Generate unique filename
+                    string fileName = Path.GetFileNameWithoutExtension(show.FormFile.FileName)
+                                        + "_" + Guid.NewGuid().ToString()
+                                        + Path.GetExtension(show.FormFile.FileName);
 
-                    //Initialize the filename in photo record
-                    show.Filename = fileName;
+                    // Get blob reference
+                    var blobClient = _containerClient.GetBlobClient(fileName);
 
-                    //Get the file path to save the file. Use Path.Combine to ensure the correct path format
-                    string savefilePath = Path.Combine(Directory.GetCurrentDirectory(),"wwwroot","photos", fileName);
-                    
-                    //Save file
-                    using (FileStream fileStream = new FileStream(savefilePath, FileMode.Create))
+                    // Upload to Azure Blob Storage
+                    using (var stream = show.FormFile.OpenReadStream())
                     {
-                        await show.FormFile.CopyToAsync(fileStream);
+                        await blobClient.UploadAsync(stream, new BlobHttpHeaders { ContentType = show.FormFile.ContentType });
                     }
-                    
+
+                    // Store blob URL in the database
+                    show.Filename = blobClient.Uri.ToString();
                 }
 
                 //set the Created date to the current date/time
@@ -143,32 +157,33 @@ namespace PawsForApplause.Controllers
                 //1) Save the file (optional)
                 if (show.FormFile != null)
                 {
-                    //Create a unique filename using GUID
-                    string fileName = Path.GetFileNameWithoutExtension(show.FormFile.FileName) + "_" + Guid.NewGuid().ToString() + Path.GetExtension(show.FormFile.FileName);
+                    string fileName = Path.GetFileNameWithoutExtension(show.FormFile.FileName)
+                                        + "_" + Guid.NewGuid().ToString()
+                                        + Path.GetExtension(show.FormFile.FileName);
 
-                    //Initialize the filename in photo record
-                    show.Filename = fileName;
+                    var blobClient = _containerClient.GetBlobClient(fileName);
 
-                    //Get the file path to save the file. Use Path.Combine to ensure the correct path format
-                    string savefilePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "photos", fileName);
-
-                    //Save file
-                    using (FileStream fileStream = new FileStream(savefilePath, FileMode.Create))
+                    using (var stream = show.FormFile.OpenReadStream())
                     {
-                        await show.FormFile.CopyToAsync(fileStream);
+                        await blobClient.UploadAsync(stream, new BlobHttpHeaders { ContentType = show.FormFile.ContentType });
                     }
 
-                    //delete the old file
+                    // Delete old blob if it exists
                     var oldShow = await _context.Show.AsNoTracking().FirstOrDefaultAsync(p => p.ShowId == id);
                     if (oldShow != null && !string.IsNullOrEmpty(oldShow.Filename))
                     {
-                        string oldFilePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "photos", oldShow.Filename);
-                        if (System.IO.File.Exists(oldFilePath))
+                        var oldBlobClient = new BlobClient(new Uri(oldShow.Filename), new AzureSasCredential("<optional if using SAS>"));
+                        try
                         {
-                            System.IO.File.Delete(oldFilePath);
+                            await _containerClient.DeleteBlobIfExistsAsync(Path.GetFileName(new Uri(oldShow.Filename).AbsolutePath));
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine($"Failed to delete old blob: {ex.Message}");
                         }
                     }
 
+                    show.Filename = blobClient.Uri.ToString();
                 }
 
                 //Keep the original Created date
@@ -231,10 +246,14 @@ namespace PawsForApplause.Controllers
             {
                 if (!string.IsNullOrEmpty(show.Filename))
                 {
-                    string filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "photos", show.Filename);
-                    if (System.IO.File.Exists(filePath))
+                    try
                     {
-                        System.IO.File.Delete(filePath);
+                        string blobName = Path.GetFileName(new Uri(show.Filename).AbsolutePath);
+                        await _containerClient.DeleteBlobIfExistsAsync(blobName);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Failed to delete blob: {ex.Message}");
                     }
                 }
 

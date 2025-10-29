@@ -12,8 +12,8 @@ using PawsForApplause.Data;
 namespace PawsForApplause.Migrations
 {
     [DbContext(typeof(PawsForApplauseContext))]
-    [Migration("20251010190111_RemovedUsernameEmailPasswordMigration")]
-    partial class RemovedUsernameEmailPasswordMigration
+    [Migration("20251029150243_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -165,9 +165,6 @@ namespace PawsForApplause.Migrations
                     b.Property<string>("Address")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Capacity")
-                        .HasColumnType("int");
 
                     b.Property<string>("City")
                         .IsRequired()

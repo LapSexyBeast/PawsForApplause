@@ -12,9 +12,9 @@ namespace PawsForApplause.Models
         public string Province { get; set; } = string.Empty; // venue Province
         public string PostalCode { get; set; } = string.Empty; // venue postal code
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = false)]
-        public DateTime Created { get; set; } // date and time record created
+        public DateTime? Created { get; set; } // date and time record created
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = false)]
-        public DateTime LastModified { get; set; } //date and time record last modified
+        public DateTime? LastModified { get; set; } //date and time record last modified
 
         //Navigation property to Shows held at the venue
         public ICollection<Show> Shows { get; set; } = new List<Show>();

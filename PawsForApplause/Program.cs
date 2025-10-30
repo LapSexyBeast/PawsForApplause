@@ -37,6 +37,13 @@ if (builder.Environment.IsDevelopment())
     builder.Configuration.AddUserSecrets<Program>();
 }
 
+// Apply pending migrations at startup
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<PawsForApplauseContext>();
+    db.Database.Migrate();
+}
+
 app.UseHttpsRedirection();
 app.UseRouting();
 
